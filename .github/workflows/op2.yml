@@ -1,6 +1,8 @@
-name: open2
+name: rey2
 
 on:
+  schedule:
+    - cron: '0 */7 * * *'
   workflow_dispatch:
 
 jobs:
@@ -8,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 340
     env:
-      REPO_ORIGIN: https://github.com/haileen5/h-dashboard.git
-      WF_NAME: open2
+      REPO_ORIGIN: https://github.com/Shabakebehdasht/h-dashboard.git
+      WF_NAME: rey2
 
     steps:
       - name: 1. Checkout Repository
@@ -120,8 +122,8 @@ jobs:
           cd h-dashboard
 
           # Set git identity for commits
-          git config user.name "haileen5"
-          git config user.email "haileen5@users.noreply.github.com"
+          git config user.name "Shabakebehdasht"
+          git config user.email "Shabakebehdasht@users.noreply.github.com"
 
           # Fetch latest origin/beta
           git fetch origin beta
@@ -368,10 +370,10 @@ jobs:
           GH_TOKEN: ${{ secrets.MY_PAT }}
         run: |
           cd "${GITHUB_WORKSPACE:-.}"
-          git config user.name "haileen5"
-          git config user.email "haileen5@users.noreply.github.com"
+          git config user.name "Shabakebehdasht"
+          git config user.email "Shabakebehdasht@users.noreply.github.com"
           # Authenticate with PAT for push
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/haileen5/my-opencode.git"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/Shabakebehdasht/my-opencode.git"
 
           # 1. Copy OpenCode state back to the repo — this replaces the old
           #    Hermes state backup. Layout: opencode/config mirrors
@@ -421,7 +423,7 @@ jobs:
           if git diff --cached --quiet; then
             echo 'ℹ️ No changes to commit'
           else
-            git commit -m "Sync opencode state & 9router data from open2 instance"
+            git commit -m "Sync opencode state & 9router data from rey2 instance"
             # Pull first in case another run pushed before us
             git pull --rebase origin "${{ github.ref_name }}" || true
             git push origin "${{ github.ref_name }}" || echo '⚠️ Push failed — changes saved locally'
