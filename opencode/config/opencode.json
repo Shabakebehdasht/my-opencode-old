@@ -1,4 +1,42 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "opencode/mimo-v2.6-flash-free"
+  "model": "opencode/mimo-v2.6-flash-free",
+  "mcp": {
+    "laravel-boost": {
+      "type": "local",
+      "command": [
+        "bash",
+        "-c",
+        "cd /home/runner/h-dashboard && exec php artisan boost:mcp"
+      ],
+      "enabled": true,
+      "timeout": 30000
+    },
+    "postgis": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "mcp-postgis"
+      ],
+      "environment": {
+        "MCP_POSTGIS_DATABASE_URL": "{env:MCP_POSTGIS_DATABASE_URL}",
+        "MCP_POSTGIS_MODE": "read_only"
+      },
+      "enabled": true,
+      "timeout": 60000
+    },
+    "github": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      },
+      "enabled": true,
+      "timeout": 120000
+    }
+  }
 }
